@@ -1,15 +1,49 @@
 {
   "full_name": "Md Zahid Hasan Patwary",
-  "tag_line": "Innovating the Impossible. Where 1's and 0's Meet Bold Marketing Magic!",
-  "intro_tagline": "Web3 Marketing Specialist—Fusing Creative Code in C, Java, Python, and JavaScript with Stunning Designs in React.js, Dart, Flutter, and Figma!" ,
-  "subTitle": "Transforming challenges into opportunities is what I do best.",
-  "tech_year": "2022",
-  "github_username": "0xZahidp",
   "name": "Zahid",
+  "greeting_type": "Hi 👋",
+  "github_username": "0xZahidp",
+  "subTitle": "Transforming challenges into opportunities is what I do best.",
   "user_skill": "Computer Engineer, Web3 Marketer, Programmer, Traveler",
-  "favorites_quote": "Willingness to take intelligient risks in the pursuit of your clearly defined goals, put you on a greater side of life. Enabling you to archive the same level of success in 1 or 2 years, which may take other people10 or 20 years to archieve, if lessed focused.",
-  "greeting_type": "Hi ✌",
-  "bio_desc": [
-    "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems. I pay close attention to detail and enjoy creating smooth user experiences. I use my skills in C, Java, Python, and JavaScript to turn ideas into reality. I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences. On top of that, I work with React.js for front-end development and Dart and Flutter for mobile app development, always striving to build digital solutions that truly resonate with users."
-  ]
+  "tech_year": "2022",
+  "favorites_quote": "Willingness to take intelligent risks in the pursuit of your clearly defined goals puts you on the greater side of life. Enabling you to achieve the same level of success in 1 or 2 years, which may take other people 10 or 20 years to achieve, if less focused.",
+  "location": "Dhaka, Bangladesh",
+  "tag_line": "Innovating the Impossible. Where 1's and 0's Meet Bold Marketing Magic!",
+  "intro_tagline": "Web3 Marketing Specialist—Fusing Creative Code in C, Java, Python, and JavaScript with Stunning Designs in React.js, Dart, Flutter, and Figma!",
+  "bio_desc": "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems. I pay close attention to detail and enjoy creating smooth user experiences. I use my skills in C, Java, Python, and JavaScript to turn ideas into reality. I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences.",
+  "skills": {
+    "languages": ["C", "Java", "Python", "JavaScript"],
+    "frameworks": ["React.js", "Dart", "Flutter"],
+    "expertise": ["Web3 Marketing", "Prompt Engineering"]
+  },
+  "experience": [
+    {
+      "position": "Head of Marketing",
+      "company": "War Three Kingdom",
+      "duration": "2024 - Present",
+      "description": "Managing promotional events, AMAs, and Twitter Spaces for community engagement.",
+      "url": "https://warthreekingdom.com"
+    },
+    {
+      "position": "Head of Marketing",
+      "company": "NexGami",
+      "duration": "2023 - 2024",
+      "description": "Led marketing campaigns and growth strategies for the Web3 gaming platform.",
+      "url": "https://nexgami.com"
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "institution": "Daffodil International University",
+      "year": "2022 - 2026"
+    }
+  ],
+  "contact_links": [
+    { "platform": "Email", "url": "mailto:mdzahidhasanpatwary@gmail.com", "icon": "FaEnvelope" },
+    { "platform": "GitHub", "url": "https://github.com/0xZahidp", "icon": "AiFillGithub" },
+    { "platform": "LinkedIn", "url": "https://linkedin.com/in/0xzahidp", "icon": "FaLinkedin" }
+  ],
+  "resume_url": "/CV/resume.pdf",
+  "avatar": "/default-avatar.jpg"
 }

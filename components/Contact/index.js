@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Container } from '..'
 import { AiFillMessage, AiOutlineClose } from 'react-icons/ai'
-import DataContext from '../../context/DataContext'
+import { DataContext } from '../../context/DataContext'
 import emailjs from '@emailjs/browser'
 import { Notification, validateEmail } from '../../helpers'
 import { EMAILJS_TEMPLATE_ID, EMAILJS_SERVICE_ID, EMAILJS_PUBLIC_KEY } from '../../config'
@@ -9,7 +9,13 @@ import { EMAILJS_TEMPLATE_ID, EMAILJS_SERVICE_ID, EMAILJS_PUBLIC_KEY } from '../
 const notif = new Notification(3000)
 
 function Contact() {
-    const { contactActive, closeContactForm, openContactForm } = useContext(DataContext)
+    const context = useContext(DataContext)
+    
+    const { 
+        contactActive = false, 
+        closeContactForm = () => console.warn('Context not available'), 
+        openContactForm = () => console.warn('Context not available') 
+    } = context || {}
 
     return (
         <div className="w-screen bg-dark-300 h-auto p-2 md:p-5">
@@ -26,10 +32,8 @@ function Contact() {
                 </div>
             </Container>
 
-            {/* Contact form */}
             <ContactForm closeContactForm={closeContactForm} contactActive={contactActive} />
 
-            {/* Floating button */}
             <div id="floating-btn" className="fixed bottom-20 right-5 z-[100] flex flex-col items-center justify-center md:bottom-10">
                 <span className="flex flex-col items-center justify-center p-[12px] bg-dark-400 rounded-[50%] border-green-2003 transition-all scale-[.80] hover:scale-[.95] cursor-pointer">
                     <AiFillMessage className="text-[30px] text-green-200" onClick={openContactForm} />
@@ -38,8 +42,6 @@ function Contact() {
         </div>
     )
 }
-
-export default Contact
 
 function ContactForm({ contactActive, closeContactForm }) {
     const [loading, setLoading] = useState(false)
@@ -76,9 +78,7 @@ function ContactForm({ contactActive, closeContactForm }) {
         }
 
         if (!EMAILJS_TEMPLATE_ID || !EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) {
-            console.error(`
-                FAILED TO SEND MESSAGE: missing some configurations. Check your config/index.js file.
-            `)
+            console.error(`FAILED TO SEND MESSAGE: missing configurations.`)
             return notif.error(`FAILED TO SEND MESSAGE: something went wrong.`)
         }
 
@@ -88,7 +88,6 @@ function ContactForm({ contactActive, closeContactForm }) {
                 setLoading(false)
                 notif.success("MESSAGE SENT.")
                 setUserInputs({ name: "", email: "", subject: "", message: "" })
-                console.log(response)
             })
             .catch(err => {
                 setLoading(false)
@@ -149,3 +148,5 @@ function ContactForm({ contactActive, closeContactForm }) {
         </div>
     )
 }
+
+export default Contact
