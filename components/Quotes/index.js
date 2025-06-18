@@ -1,65 +1,61 @@
-import React from 'react';
-import { Container } from '..';
-import { FaStar, FaQuoteRight } from "react-icons/fa";
-import userInfo from "../../data/usersInfo.json";
+import React from 'react'
+import { Container } from '..'
+
+import { FaStar, FaQuoteLeft, FaQuoteRight } from "react-icons/fa"
+import userInfo from "../../data/usersInfo.json"
+
 
 function Quote() {
-    // Check if quote exists before rendering
-    if (!userInfo?.favorites_quote || !userInfo?.github_username) {
-        return null; // Or render a fallback UI
-    }
-
     return (
-        <section className="w-full bg-dark-200 py-12 md:py-16">
+        <div className="w-full h-auto bg-dark-200 py-[50px]">
             <Container>
-                <div className="flex flex-col items-center text-center md:flex-row md:justify-center md:items-center md:space-x-8">
-                    <h1 data-aos="fade-right" className="text-3xl md:text-4xl font-bold mb-4 md:mb-0">
-                        Favorite Quote
-                    </h1>
-                    <p data-aos="fade-left" className="text-sm text-white-200">
-                        My favorite motivational quote
-                    </p>
+                <div className="head mx-auto flex flex-col items-center justify-center text-center md:items-center md:justify-start md:flex-row md:px-0">
+                    <h1 data-aos="fade-right" className="text-[35px] font-bold md:mr-[50px]">Favorite Quote</h1>
+                    <p data-aos="fade-left" className="text-[12px] text-white-200 ">My favorite motivational quote.</p>
                 </div>
-                
-                <div className="w-full mt-12 md:mt-16 relative">
+                <div id="quote-cont" className='w-full h-auto mt-[100px] relative p-2 md:p-0'>
+
                     <QuoteCard />
                 </div>
             </Container>
-        </section>
-    );
+        </div>
+    )
 }
+
+export default Quote
 
 function QuoteCard() {
+
     return (
-        <div className="relative bg-dark-300 px-6 py-8 md:px-12 md:py-10 rounded-lg overflow-hidden">
-            <FaQuoteRight 
-                data-aos="fade-left" 
-                className="absolute top-4 right-4 text-3xl text-white-300 opacity-30 md:top-6 md:right-6" 
-            />
-            
-            <div className="flex items-center">
-                <StarRatings count={5} size={4} />
-                <span className="ml-2 text-white-300 font-bold">
-                    {userInfo.github_username?.charAt(0).toUpperCase() + userInfo.github_username?.slice(1) || 'Anonymous'}
-                </span>
+        <div id="t-box" className='relative w-full h-auto space-2 bg-dark-300 px-[30px] py-[20px] md:px-[80px] md:py-[50px] rounded-lg overflow-hidden'>
+            <FaQuoteRight data-aos="fade-left" className='absolute top-[20px] right-[25px] text-[35px] text-white-300 opacity-[.3]' />
+            <div id="ratings" className="w-full flex flex-row items-center justify-start">
+                <StarRatings count={10} size={10} />
+                <small className='ml-2 text-white-300 font-bold'>{userInfo.github_username.charAt(0).toUpperCase() + userInfo.github_username.slice(1)}</small>
             </div>
-            
-            <blockquote className="mt-6 text-white-200 text-lg md:text-xl italic">
-                {userInfo.favorites_quote || "No quote available"}
-            </blockquote>
+            <br />
+            <div id="body" className="w-full flex flex-row items-start justify-start mt-4">
+                <p data-aos="zoom-in-up">
+                    {userInfo.favorites_quote}
+                </p>
+            </div>
         </div>
-    );
+    )
 }
 
-function StarRatings({ count = 5, size = 4 }) {
+function StarRatings({ count = 1, size = 3 }) {
+
     return (
-        <div className="flex items-center">
-            {[...Array(count)].map((_, i) => (
-                <FaStar key={i} className="text-green-200 text-xs md:text-sm" />
-            ))}
-            <span className="ml-2 text-white-200">{count}.0</span>
-        </div>
-    );
-}
+        <>
+            {
+                Array(count).fill(count).map((i) => {
+                    return (
+                        <FaStar key={i} className={`text-green-200 text-[${size}px] `} key={i} />
+                    )
+                })
 
-export default Quote;
+            }
+            <small className="ml-2 text-white-200">{count}.0</small>
+        </>
+    )
+}

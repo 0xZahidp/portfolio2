@@ -10,7 +10,12 @@
   "location": "Dhaka, Bangladesh",
   "tag_line": "Innovating the Impossible. Where 1's and 0's Meet Bold Marketing Magic!",
   "intro_tagline": "Web3 Marketing Specialist—Fusing Creative Code in C, Java, Python, and JavaScript with Stunning Designs in React.js, Dart, Flutter, and Figma!",
-  "bio_desc": "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems. I pay close attention to detail and enjoy creating smooth user experiences. I use my skills in C, Java, Python, and JavaScript to turn ideas into reality. I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences.",
+  "bio_desc": [
+    "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems.",
+    "I pay close attention to detail and enjoy creating smooth user experiences.",
+    "I use my skills in C, Java, Python, and JavaScript to turn ideas into reality.",
+    "I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences."
+  ],
   "skills": {
     "languages": ["C", "Java", "Python", "JavaScript"],
     "frameworks": ["React.js", "Dart", "Flutter"],

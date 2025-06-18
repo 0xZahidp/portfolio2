@@ -3,249 +3,136 @@ import Link from 'next/link'
 import { Container, DomHead, Footer, NavBar } from "../components"
 import { FaArrowLeft } from 'react-icons/fa'
 import { ResponsiveNavbar } from '../components/Navbar'
-import { FaStar, FaArrowRight } from "react-icons/fa"
+import { FaStar, FaArrowRight, FaQuoteRight } from "react-icons/fa"
 import { AiFillGithub } from "react-icons/ai"
-import { motion } from 'framer-motion'
+
 import { projects } from "../data/projects.json"
 import userInfo from "../data/usersInfo.json"
-import Contact from '../components/Contact'
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3
-    }
-  }
-}
 
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-}
-
-const cardHover = {
-  scale: 1.03,
-  boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
-  transition: {
-    duration: 0.3,
-    ease: "easeInOut"
-  }
-}
-
-const cardTap = {
-  scale: 0.98,
-  transition: {
-    duration: 0.2
-  }
-}
 
 function Projects() {
     const [windowWidth, setWindowWidth] = useState(0)
 
     useEffect(() => {
         setWindowWidth(window.innerWidth)
-        const handleResize = () => setWindowWidth(window.innerWidth)
-        window.addEventListener("resize", handleResize)
-        return () => window.removeEventListener("resize", handleResize)
-    }, [])
+        window.addEventListener("resize", () => {
+            setWindowWidth(window.innerWidth)
+        })
+    }, [windowWidth])
+
 
     return (
-        <motion.div 
-            className="overflow-x-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        >
+        <div>
             <DomHead pageName='Projects' />
             <Container>
                 <NavBar />
             </Container>
-            
-            {/* Hero Section */}
-            <motion.div 
-                id="top-head" 
-                className="relative w-full h-[35vh] bg-dark-400 p-3 flex flex-col items-start justify-start"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-            >
+            <div id="top-head" className="relative w-full h-[35vh] bg-dark-400 p-3 flex flex-col items-start justify-start ">
                 <Container className="relative">
-                    <motion.div
-                        whileHover={{ x: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Link href={"/"}>
-                            <FaArrowLeft className='px-3 py-1 text-white-200 text-[35px] bg-dark-100 rounded-[4px] cursor-pointer' />
-                        </Link>
-                    </motion.div>
+                    <Link href={"/"}>
+                        <FaArrowLeft className='px-3 py-1 text-white-200 text-[35px] bg-dark-100 rounded-[4px] cursor-pointer' />
+                    </Link>
                     <br />
-                    <motion.h1 
-                        className="text-[50px] font-bold"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                    >
+                    <h1 className="text-[50px] font-bold ">
                         Projects
-                    </motion.h1>
-                    <motion.p 
-                        className="text-[15px] text-white-300"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                    >
+                    </h1>
+                    <p className="text-[15px] text-white-300 ">
                         Here are my completed projects.
-                    </motion.p>
+                    </p>
                 </Container>
-            </motion.div>
-            
-            {/* Projects Content */}
-            <motion.div 
-                className="w-full"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-            >
+            </div>
+            <div className="w-screen h-auto ">
+                <br />
                 <Container>
-                    {/* Projects Section */}
-                    <motion.div 
-                        className="w-full py-2"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.7 }}
-                    >
-                        <h2 className="text-[20px] text-white-200 px-4 md:px-0">Personal Projects</h2>
-                    </motion.div>
-                    
-                    <motion.div 
-                        className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-5"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
+                    <div id="head" className="w-full py-2 mx-auto flex flex-row justify-start items-start ">
+                        <h2 className="text-[20px] text-white-200 px-4 md:px-4 ">Personal Projects</h2>
+                    </div>
+                    <div className="w-full mt-2 mx-auto h-auto p-3  flex flex-col items-start justify-start flex-wrap mb-5 space-x-0 md:space-x-5 md:w-[100%] md:flex-row">
+                        {/* <Categories /> */}
                         <ProjectsCard />
-                    </motion.div>
-                    
-                    {/* GitHub Section */}
-                    <motion.div 
-                        className="w-full py-5"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8 }}
-                    >
-                        <h2 className="text-[20px] text-white-200">Github Repos</h2>
-                    </motion.div>
-                    
-                    <motion.div 
-                        className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[50px]"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
+                    </div>
+                    <div id="head" className="w-full py-5 mx-auto flex flex-row justify-start items-start ">
+                        <h2 className=" text-[20px] text-white-200 p-4 md:p-0 ">Github Repos</h2>
+                    </div>
+                    <div id="head" className="w-full space-x-0 py-4 p-4 mx-auto flex flex-row justify-start items-start flex-wrap mb-[50px] gap-10 md:flex-row md:space-x-0 ">
                         <GithubRepo />
-                    </motion.div>
+                    </div>
                 </Container>
-            </motion.div>
-
-            {/* Contact Section */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-            >
-                <Contact />
-            </motion.div>
-            
+            </div>
             <Footer />
             {windowWidth <= 700 && <ResponsiveNavbar pageName={"projects"} />}
-        </motion.div>
+        </div>
     )
 }
 
+export default Projects
+
 function ProjectsCard() {
+
     return (
         <>
-            {projects.length > 0 &&
-                projects.map((list, i) => (
-                    <motion.div 
-                        key={i}
-                        className="w-full h-auto bg-dark-200 rounded-[5px] opacity-[.7] hover:opacity-[1] overflow-hidden"
-                        variants={itemVariants}
-                        whileHover={cardHover}
-                        whileTap={cardTap}
-                    >
-                        <motion.div 
-                            className="w-full h-48 bg-cover bg-center rounded-t-[5px]"
-                            style={{
-                                backgroundImage: `url(${list.imageUrl || "https://www.wallpapertip.com/wmimgs/136-1369543_laptop-coding.jpg"})`
-                            }}
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.3 }}
-                        />
-                        <div className="w-full p-4">
-                            <motion.p 
-                                className="text-[15px] text-white-200"
-                                whileHover={{ color: "#ffffff" }}
-                            >
-                                {list.title || "Project Title"}
-                            </motion.p>
-                            <motion.p 
-                                className="text-sm text-white-300 mt-2"
-                                whileHover={{ color: "#ffffff" }}
-                            >
-                                {list.description 
-                                    ? list.description.length > 150 
-                                        ? `${list.description.slice(0, 100)}...` 
-                                        : list.description
-                                    : "some dummy description"}
-                            </motion.p>
-                            <div className="flex flex-wrap gap-2 mt-3">
-                                {list.tags?.slice(0, 3).map((tag, i) => (
-                                    <motion.span 
-                                        key={i} 
-                                        className="text-[10px] py-[3px] px-[9px] bg-dark-100 rounded-[2px] text-white-100"
-                                        whileHover={{ scale: 1.05, backgroundColor: "#2d3748" }}
-                                    >
-                                        {tag}
-                                    </motion.span>
-                                ))}
+            {
+                projects.length > 0 ?
+                    projects.map((list, i) => {
+                        return (
+                            <div key={i} className={`box w-full h-auto bg-dark-200 rounded-[5px] relative top-[50px] transition-all mb-[50px] mr-[5px] opacity-[.7] md:w-[250px] md:ml-0 hover:opacity-[1]`}>
+                                <div className="imgCont"></div>
+                                <style jsx>{`
+                        .imgCont{
+                            width: 100%;
+                            height: 190px;
+                            background-image: url(${list.imageUrl === "" || list.imageUrl === null ? "https://www.wallpapertip.com/wmimgs/136-1369543_laptop-coding.jpg" : list.imageUrl});
+                            background-size: cover;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            // box-shadow: 0px 0px 3px #000;
+                            border-radius: 5px;
+                        }
+                    `}</style>
+                                <div className={`w-full p-[10px] bottom-[5px]`}>
+                                    <div className="w-full h-auto">
+                                        <p className={`text-[15px] text-white-200`}>{list.title === "" ? "Project Title" : list.title}</p>
+                                        <br />
+                                        <small>{list.description === "" ? "some dummy description" : list.description.length > 150 ? list.description.slice(0, 100) + "..." : list.description}</small>
+                                    </div>
+                                    <br />
+                                    <div className={` bottom-[5px] left-[5px] p-0 flex items-start justify-start`}>
+                                        {
+                                            list.tags.length > 0 ?
+                                                list.tags.slice(0, 3).map((tag, i) => {
+                                                    return (
+                                                        <span key={i} className={`text-[10px] py-[3px] px-[9px] bg-dark-100 mr-[2px] rounded-[2px] text-white-100`}>{tag}</span>
+                                                    )
+                                                })
+                                                :
+                                                ""
+                                        }
+                                    </div>
+                                    <span className={`absolute  my-[-20px] right-[10px] text-[12px] flex items-center justify-start`}>
+                                        {
+                                            list.project_url !== "" ?
+                                                <>
+                                                    <a href={list.project_url} className={`text-white-200 mr-[10px] hover:underline hover:text-white-100`}>
+                                                        View
+                                                    </a>
+                                                    <ion-icon name="arrow-forward-outline" className={`ml-[10px] p-[10px]`}></ion-icon>
+                                                </>
+                                                :
+                                                ""
+                                        }
+                                    </span>
+
+                                </div>
                             </div>
-                            {list.project_url && (
-                                <motion.div 
-                                    className="mt-3 text-right"
-                                    whileHover={{ x: 5 }}
-                                >
-                                    <a 
-                                        href={list.project_url} 
-                                        className="text-white-200 hover:underline hover:text-white-100 flex items-center justify-end"
-                                    >
-                                        View
-                                        <motion.span
-                                            animate={{ x: [0, 5, 0] }}
-                                            transition={{ repeat: Infinity, duration: 1.5 }}
-                                        >
-                                            <FaArrowRight className="ml-2" />
-                                        </motion.span>
-                                    </a>
-                                </motion.div>
-                            )}
-                        </div>
-                    </motion.div>
-                ))
+                        )
+                    })
+                    :
+                    ""
             }
         </>
     )
 }
+
 
 function GithubRepo() {
     const [repos, setRepo] = useState([])
@@ -253,133 +140,97 @@ function GithubRepo() {
     const [error, setError] = useState(null)
 
     async function fetchRepos() {
-        const url = `https://api.github.com/users/${userInfo.github_username}/repos`
-        
+        let res;
+        let url = `https://api.github.com/users/${userInfo.github_username}/repos`
         if (localStorage.getItem("user_repos") === null) {
             try {
                 setLoading(true)
-                const res = await fetch(url)
-                const data = await res.json()
-                
+                res = await fetch(url)
+                let data = await res.json()
+                setLoading(false)
+
                 if (data && data.length > 0) {
-                    localStorage.setItem("user_repos", JSON.stringify(data))
+                    localStorage.setItem("user_repo", JSON.stringify(data))
                     setRepo(data)
-                } else {
-                    setError("No github repo found")
+                    return
                 }
+                setError("No github repo found")
+                setLoading(false)
             } catch (err) {
                 setError(`FAILED FETCHING REPO'S: ${err.message}`)
-            } finally {
                 setLoading(false)
             }
-        } else {
-            const userRepos = JSON.parse(localStorage.getItem("user_repos"))
-            setRepo(userRepos)
         }
+
+        let userReopos = JSON.parse(localStorage.getItem("user_repos"))
+
+        setRepo(userReopos)
     }
 
     useEffect(() => {
-        fetchRepos()
+
+        (async () => {
+            await fetchRepos()
+        })()
+
     }, [])
 
     return (
         <>
-            {loading ? (
-                <motion.div 
-                    className="col-span-full text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                >
-                    <motion.div
-                        className="inline-block"
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    >
-                        <FaArrowRight className="text-green-200 text-2xl" />
-                    </motion.div>
-                </motion.div>
-            ) : error ? (
-                <motion.div 
-                    className="col-span-full text-center text-red-400"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    {error}
-                </motion.div>
-            ) : repos.length > 0 ? (
-                repos.map((rep, i) => (
-                    <motion.div 
-                        key={i} 
-                        className="w-full h-[180px] bg-dark-200 flex flex-col p-4 rounded-md"
-                        variants={itemVariants}
-                        whileHover={{
-                            y: -5,
-                            boxShadow: "0px 10px 20px rgba(0,0,0,0.2)"
-                        }}
-                    >
-                        <motion.h2 
-                            className="text-lg"
-                            whileHover={{ color: "#ffffff" }}
-                        >
-                            {rep.name}
-                        </motion.h2>
-                        <motion.p 
-                            className="text-sm text-white-300 mt-2 flex-grow"
-                            whileHover={{ color: "#ffffff" }}
-                        >
-                            {rep.description 
-                                ? rep.description.length > 80 
-                                    ? `${rep.description.slice(0, 80)}...` 
-                                    : rep.description
-                                : "No description"}
-                        </motion.p>
-                        <div className="flex justify-between items-center mt-3">
-                            <div className="flex gap-4">
-                                <motion.div 
-                                    className="flex items-center"
-                                    whileHover={{ scale: 1.05 }}
-                                >
-                                    <FaStar className="text-green-200 mr-1" />
-                                    <span className="text-sm text-white-200">{rep.stargazers_count}</span>
-                                </motion.div>
-                                <motion.div 
-                                    className="flex items-center"
-                                    whileHover={{ scale: 1.05 }}
-                                >
-                                    <AiFillGithub className="text-green-200 mr-1" />
-                                    <span className="text-sm text-white-200">{rep.forks}</span>
-                                </motion.div>
+            {
+                loading ? "Loading..." : error !== null ? <p>{error}</p> : repos.length > 0 ?
+                    repos.map((rep, i) => {
+                        return (
+                            <div key={i} className="relative w-full h-[180px] bg-dark-200 flex flex-col items-start justify-start px-4 py-3 mt-2 rounded-md md:w-[300px]">
+                                <h2 className="w-full text-[20px] ">{rep.name}</h2>
+                                <p className=" w-full text-[15px] text-white-300 ">{rep.description && rep.description.length > 50 ? rep.description.slice(0, 80) + "..." : rep.description}</p>
+                                <br />
+                                <div className="ratings absolute bottom-4 w-full flex flex-row items-start justify-start">
+                                    <span className="mr-2 flex flex-row items-start justify-start">
+                                        <StarRatings title="star" count={rep.stargazers_count} />
+                                    </span>
+                                    <span className="mr-2 flex flex-row items-start justify-start">
+                                        <StarRatings title="fork" count={rep.forks} />
+                                    </span>
+                                </div>
+
+                                <a href={rep.html_url} target={"_blank"} className="absolute right-3 top-2 flex flex-row items-center">
+                                    <small className="underline">View</small>
+                                    <FaArrowRight className="ml-2 text-[12px] " />
+                                </a>
                             </div>
-                            <motion.a 
-                                href={rep.html_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="flex items-center text-sm hover:underline"
-                                whileHover={{ x: 5 }}
-                            >
-                                View
-                                <motion.span
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{ repeat: Infinity, duration: 1.5 }}
-                                >
-                                    <FaArrowRight className="ml-1" />
-                                </motion.span>
-                            </motion.a>
-                        </div>
-                    </motion.div>
-                ))
-            ) : (
-                <motion.div 
-                    className="col-span-full text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                >
-                    Opps, No Github Repo was found.
-                </motion.div>
-            )}
+                        )
+                    })
+                    :
+                    "Opps, No Github Repo was found."
+            }
         </>
     )
 }
 
-export default Projects
+function StarRatings({ count = 1, size = 3, title = "star" }) {
+
+    return (
+        <>
+            {
+                Array(1).fill(1).map((i) => {
+                    return (
+                        <>
+                            {title === "star" ?
+                                <FaStar key={i * Math.random()} className={`text-green-200 text-[${size}px] `} />
+                                :
+                                title === "fork" ?
+                                    <AiFillGithub key={i * Math.random()} className={`text-green-200 text-[${size}px] `} />
+                                    :
+                                    ""
+                            }
+                        </>
+                    )
+                })
+
+            }
+            <small className="ml-2 text-white-200 font-extrabold">{count}</small>
+            <small className="ml-2 text-white-200">{title}</small>
+        </>
+    )
+}
