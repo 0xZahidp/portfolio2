@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, DomHead, Footer, NavBar } from "../components";
-import { FaArrowLeft, FaCode, FaBriefcase, FaGraduationCap, FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import { FaCode, FaBriefcase, FaGraduationCap, FaEnvelope, FaLinkedin } from 'react-icons/fa';
 import { AiFillGithub } from 'react-icons/ai';
 import { motion, useInView } from 'framer-motion';
 import userInfo from "../data/usersInfo.json";
@@ -8,7 +8,7 @@ import { ResponsiveNavbar } from "../components/Navbar";
 
 function About() {
     const [avatar, setAvatar] = useState(userInfo.avatar || "");
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Directly set initial window width
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const sectionVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -26,7 +26,6 @@ function About() {
     const contactInView = useInView(contactRef, { once: true });
 
     useEffect(() => {
-        // Fetch avatar from localStorage if available
         const cachedAvatar = localStorage.getItem("github_avatar");
         if (cachedAvatar) setAvatar(cachedAvatar);
     }, []);
@@ -49,9 +48,9 @@ function About() {
             <NavBar />
 
             {/* Hero Section */}
-            <Container className="relative">
+            <Container>
                 <motion.h1 
-                    className="text-[50px] font-bold"
+                    className="text-[36px] sm:text-[44px] md:text-[50px] font-bold"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -89,7 +88,7 @@ function About() {
                 </div>
             </Container>
 
-            {/* Skills */}
+            {/* Skills Section */}
             <motion.section
                 ref={skillsRef}
                 variants={sectionVariants}
