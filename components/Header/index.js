@@ -6,7 +6,7 @@ import languages from "../../data/languages.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaDownload, FaTimes } from "react-icons/fa";
 
-export default function Header({ children }) {
+export default function Header() {
     const [resumeActive, setResumeActive] = useState(false);
     const [reposCount, setReposCount] = useState(0);
     const [avatar, setAvatar] = useState(userAvatar.src);
@@ -67,7 +67,6 @@ export default function Header({ children }) {
     return (
         <header className="w-full min-h-[calc(100vh-80px)] pt-20 bg-dark-200 relative">
             <Container>
-                {children}
                 <div className="flex flex-col md:flex-row items-center justify-between py-10 md:py-16 gap-8">
                     {/* Left Column - Content */}
                     <motion.div 
