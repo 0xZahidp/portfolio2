@@ -28,10 +28,6 @@ export default function Intro() {
                             {usersInfo.intro_tagline}
                         </p>
                         <br />
-                        <p data-aos="fade-up" className={`text-[14px] mb-5 text-white-200`}>
-                            {usersInfo.bio_desc[0]}
-                        </p>
-
                         <Link href="/about">
                             <a data-aos="zoom-in-up" className={`text-[14px] font-bold text-green-200 underline`}>Read More</a>
                         </Link>

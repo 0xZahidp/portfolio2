@@ -5,31 +5,32 @@ export default function DomHead({ pageName = "Home Page" }) {
 
     return (
         <Head>
-            <title>{userInfo.github_username} Portfolio - {pageName} </title>
+            <title>{userInfo.name ? `${userInfo.name}'s Portfolio - ${pageName}` : `Portfolio - ${pageName}`}</title>
             {/* meta tags begins */}
             {/* Primary Meta Tags */}
-            <meta name="title" content="Benrobo- Personal Portfolio." />
-            <meta name="description" content="Generated using BaayMax." />
+            <meta name="title" content="Zahid's Portfolio" />
+            <meta name="description" content="Know more about Zahid" />
+            <meta name="keywords" content="Zahid, Portfolio, Developer, Projects" />
+            <meta name="author" content="Zahid Hasan Patwary" />
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://github.com/benrobo/portfolio-v3/" />
-            <meta property="og:title" content="Benrobo- Personal Portfolio" />
-            <meta property="og:description" content="Generating of portfolio just got easier. Using BaayMax and a single command, you're on set." />
-            <meta property="og:image" content="https://github.com/Benrobo/baaymax-assets/blob/main/app.png?raw=true" />
+            <meta property="og:url" content="https://github.com/0xZahidp/" />
+            <meta property="og:title" content="Zahid's Portfolio" />
+            <meta property="og:description" content="Know more about Zahid" />
+            <meta property="og:image" content="https://example.com/path-to-your-image.jpg" /> {/* Update with correct URL */}
 
-            {/* <!-- Twitter --> */}
+            {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content="https://metatags.io/" />
-            <meta property="twitter:title" content="Benrobo- Personal Portfolio" />
-            <meta property="twitter:description" content="Generating of portfolio just got easier. Using BaayMax and a single command, you're on set." />
-            <meta property="twitter:image" content="https://github.com/Benrobo/baaymax-assets/blob/main/app.png?raw=true" />
+            <meta property="twitter:url" content="https://github.com/0xZahidp/" />
+            <meta property="twitter:title" content="Zahid's Portfolio" />
+            <meta property="twitter:description" content="Know more about Zahid." />
+            <meta property="twitter:image" content="https://example.com/path-to-your-image.jpg" /> {/* Update with correct URL */}
 
             {/* meta tags end */}
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-            <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
+            <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
             <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         </Head>
     )
 }
-

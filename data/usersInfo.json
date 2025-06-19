@@ -10,44 +10,56 @@
   "location": "Dhaka, Bangladesh",
   "tag_line": "Innovating the Impossible. Where 1's and 0's Meet Bold Marketing Magic!",
   "intro_tagline": "Web3 Marketing Specialist—Fusing Creative Code in C, Java, Python, and JavaScript with Stunning Designs in React.js, Dart, Flutter, and Figma!",
-  "bio_desc": [
-    "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems.",
-    "I pay close attention to detail and enjoy creating smooth user experiences.",
-    "I use my skills in C, Java, Python, and JavaScript to turn ideas into reality.",
-    "I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences."
-  ],
+  "bio_desc": "As a tech enthusiast, I’m passionate about innovation and love finding smart solutions to problems. I pay close attention to detail and enjoy creating smooth user experiences. I use my skills in C, Java, Python, and JavaScript to turn ideas into reality. I also specialize in Web3 marketing, where I blend my tech knowledge with creative strategies to help brands connect with their audiences.",
   "skills": {
-    "languages": ["C", "Java", "Python", "JavaScript"],
-    "frameworks": ["React.js", "Dart", "Flutter"],
-    "expertise": ["Web3 Marketing", "Prompt Engineering"]
+    "languages": ["C", "Java", "Python", "JavaScript", "pHp"],
+    "frameworks": ["React.js", "Dart", "Flutter","Laravel"],
+    "expertise": ["Web3 Marketing", "Prompt Engineering", "Community Management", "Content Creation", "Social Media Marketing"]
   },
   "experience": [
     {
       "position": "Head of Marketing",
       "company": "War Three Kingdom",
-      "duration": "2024 - Present",
+      "duration": "Dec 2024 - Jun 2025",
       "description": "Managing promotional events, AMAs, and Twitter Spaces for community engagement.",
       "url": "https://warthreekingdom.com"
     },
     {
       "position": "Head of Marketing",
       "company": "NexGami",
-      "duration": "2023 - 2024",
+      "duration": "Jan 2023 - Dec 2024",
       "description": "Led marketing campaigns and growth strategies for the Web3 gaming platform.",
       "url": "https://nexgami.com"
+    },
+    {
+      "position": "Regional Marketing Manager",
+      "company": "Coinhub Wallet",
+      "duration": "Sep 2021 - Mar 2022",
+      "description": "Managing promotional events, AMAs, and Twitter Spaces for community engagement.",
+      "url": "https://linktr.ee/CoinhubWallet"
     }
   ],
   "education": [
     {
       "degree": "Bachelor of Science in Computer Science",
       "institution": "Daffodil International University",
-      "year": "2022 - 2026"
+      "year": "2022 - 2025"
+    },
+    {
+      "degree": "Higher Secondary Certificate (HSC)",
+      "institution": "Chandpur Govt. College",
+      "year": "2019 - 2020"
+    },
+    {
+      "degree": "Secondary School Certificate (SSC)",
+      "institution": "Balia Adarsha High School",
+      "year": "2016 - 2018"
     }
   ],
   "contact_links": [
     { "platform": "Email", "url": "mailto:mdzahidhasanpatwary@gmail.com", "icon": "FaEnvelope" },
     { "platform": "GitHub", "url": "https://github.com/0xZahidp", "icon": "AiFillGithub" },
-    { "platform": "LinkedIn", "url": "https://linkedin.com/in/0xzahidp", "icon": "FaLinkedin" }
+    { "platform": "LinkedIn", "url": "https://www.linkedin.com/in/oxzahidp", "icon": "FaLinkedin" }
   ],
   "resume_url": "/CV/resume.pdf",
   "avatar": "/default-avatar.jpg"

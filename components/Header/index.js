@@ -1,160 +1,243 @@
-import { useState, useEffect } from "react"
-import { Container } from ".."
-import userAvatar from "../../public/images/avatar/avatar.png"
-
-import usersInfo from "../../data/usersInfo.json"
-import languages from "../../data/languages.json"
+import { useState, useEffect } from "react";
+import { Container } from "..";
+import userAvatar from "../../public/images/avatar/avatar.png";
+import usersInfo from "../../data/usersInfo.json";
+import languages from "../../data/languages.json";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaDownload, FaTimes } from "react-icons/fa";
 
 export default function Header({ children }) {
-
-    const [resumeActive, setResumeActive] = useState(false)
-    const [reposcount, setReposCount] = useState(0)
-    const [avatar, setAvatar] = useState("")
-
+    const [resumeActive, setResumeActive] = useState(false);
+    const [reposCount, setReposCount] = useState(0);
+    const [avatar, setAvatar] = useState(userAvatar.src);
     const userName = usersInfo.github_username;
+    const resume = usersInfo.resume_url || "/CV/resume.pdf";
 
-    function openResume() {
+    // Animation variants
+    const fadeUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    };
 
-        setResumeActive(!resumeActive)
-    }
+    const scaleIn = {
+        hidden: { scale: 0.9, opacity: 0 },
+        visible: { scale: 1, opacity: 1, transition: { duration: 0.5 } }
+    };
 
-    // fetch github repos count
     async function getReposCount() {
-        let res;
-        if (localStorage.getItem("repo_counts") === null) {
-
-            res = await fetch(`https://api.github.com/users/${userName}`)
-            let data = await res.json()
-
-            if (data && data.public_repos !== undefined) {
-                const { public_repos, avatar_url } = data;
-                localStorage.setItem("repo_counts", JSON.stringify(public_repos))
-                // store github user avatar
-                localStorage.setItem("github_avatar", JSON.stringify(avatar_url))
-                setReposCount(public_repos)
-            }
+        if (!userName) {
+            console.error("GitHub username is missing");
+            return;
         }
 
-        // get data from cahched localstorage
-        let data = JSON.parse(localStorage.getItem("repo_counts"))
-        let useravatar = JSON.parse(localStorage.getItem("github_avatar"))
+        try {
+            let publicRepos = 0;
+            let avatarUrl = userAvatar.src;
 
-        setReposCount(data)
-        setAvatar(useravatar)
+            if (localStorage.getItem("repo_counts") === null) {
+                const response = await fetch(`https://api.github.com/users/${userName}`);
+                if (!response.ok) throw new Error('GitHub API error');
+                
+                const data = await response.json();
+                publicRepos = data.public_repos || 0;
+                avatarUrl = data.avatar_url || userAvatar.src;
+                
+                localStorage.setItem("repo_counts", publicRepos.toString());
+                localStorage.setItem("github_avatar", avatarUrl);
+            } else {
+                publicRepos = parseInt(localStorage.getItem("repo_counts")) || 0;
+                avatarUrl = localStorage.getItem("github_avatar") || userAvatar.src;
+            }
 
-        return data
+            setReposCount(publicRepos);
+            setAvatar(avatarUrl);
+        } catch (error) {
+            console.error("Failed to fetch GitHub data:", error);
+        }
     }
 
     useEffect(() => {
+        getReposCount();
+    }, [userName]);
 
-        (async () => {
-            await getReposCount()
-
-        })()
-
-    }, [])
-
-
-
+    const experienceYears = usersInfo.tech_year 
+        ? new Date().getFullYear() - parseInt(usersInfo.tech_year) 
+        : 1;
 
     return (
-        <header className={`header w-full h-[100vh] relative bg-dark-200 md:h-auto`}>
+        <header className="w-full min-h-[calc(100vh-80px)] pt-20 bg-dark-200 relative">
             <Container>
                 {children}
+                <div className="flex flex-col md:flex-row items-center justify-between py-10 md:py-16 gap-8">
+                    {/* Left Column - Content */}
+                    <motion.div 
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeUp}
+                        className="w-full md:w-1/2 space-y-6"
+                    >
+                        <motion.span 
+                            variants={fadeUp}
+                            className="inline-block px-3 py-1 bg-green-600 text-green-100 rounded-md text-sm font-medium"
+                        >
+                            {usersInfo.user_skill}
+                        </motion.span>
 
-                {/* shows on desktop */}
-                <div className={`w-full h-[70vmin] flex align-center items-center justify-center flex-row p-[20px] flex-wrap mt-[50px]`}>
+                        <motion.h1 
+                            variants={fadeUp}
+                            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                        >
+                            {usersInfo.tag_line}
+                        </motion.h1>
 
-                    <div className={`w-full h-full mb-[50px] relative md:w-[50%]`}>
-                        <div className={``}>
-                            <span data-aos="fade-up" className={`py-[2px] px-[8px] bg-green-600 text-green-100 rounded-[3px] text-[12px] text-capitalize  `}>
-                                {usersInfo.user_skill}
-                            </span>
-                            <br />
-                            <br />
-                            <h1 data-aos="fade-right" className={` text-[9vmin] md:text-[5vmin]`}>
-                                {usersInfo.tag_line}
-                            </h1>
-                            <br />
-                            <span data-aos="fade-in" className={` text-[20px] md:text-[2vmin] `}>
-                                {usersInfo.subTitle}
-                            </span>
-                            <br />
-                        </div>
-                        <div className={`relative top-[50px] flex align-start items-start justify-start w-full`}>
-                            <div data-aos="zoom-in-left" className={`w-[50%] mr-[20px] flex flex-row items-center justify-start`}>
-                                <h1 className={` text-[35px] pt-[10px] pr-[10px] pb-0 pl-0 `}>
-                                    {(new Date().getFullYear() - parseInt(usersInfo.tech_year))+1}
-                                </h1>
-                                <span className={` w-[50px] text-white-300 text-[10px] `}>
+                        <motion.p 
+                            variants={fadeUp}
+                            className="text-lg md:text-xl text-white-300"
+                        >
+                            {usersInfo.subTitle}
+                        </motion.p>
+
+                        <motion.div 
+                            variants={fadeUp}
+                            className="flex gap-8 mt-8"
+                        >
+                            <div className="flex items-center">
+                                <span className="text-3xl md:text-4xl font-bold mr-3">
+                                    {experienceYears}+
+                                </span>
+                                <span className="text-sm text-white-300">
                                     Years of Experience
                                 </span>
                             </div>
-                            <div data-aos="zoom-in-right" className={`w-[50%] mr-[20px] flex flex-row items-center justify-start`}>
-                                <h1 className={` text-[35px] pt-[10px] pr-[10px] pb-0 pl-0 `}>
-                                    {reposcount}
-                                </h1>
-                                <span className={` w-[50px] text-white-300 text-[10px] `}>
-                                    Projects / Contributions
+                            <div className="flex items-center">
+                                <span className="text-3xl md:text-4xl font-bold mr-3">
+                                    {reposCount}+
+                                </span>
+                                <span className="text-sm text-white-300">
+                                    Projects
                                 </span>
                             </div>
-                        </div>
-                        <div className="w-full h-auto mt-[60px]">
-                            <br />
-                            <button className="w-[150px] border-[2px] border-solid border-green-200 px-5 py-3 bg-dark-100 rounded-[30px] scale-[.90] hover:scale-[.95] transition-all  " onClick={openResume}>View CV</button>
-                        </div>
+                        </motion.div>
 
-                        {resumeActive && <ResumeViewer openResume={openResume} />}
-                    </div>
-                    <div data-aos="fade-left" className={`main w-full h-auto hidden md:block md:w-[50%] relative `}>
-                        <div className={`img-cont w-[250px] h-[250px] p-[15vmin] flex flex-col items-center justify-center bg-cover bg-center  rounded-[50%] `}>
-                            <style jsx>{`
-                                .img-cont{
-                                    background-image: url("${avatar}");
-                                }
-                            `}</style>
-                            {/* <img data-aos="zoom-in-up" src={avatar === "" ? userAvatar.src : avatar} className={`avatar rounded-[50%] `} /> */}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setResumeActive(true)}
+                            className="mt-6 px-6 py-3 border-2 border-green-200 text-green-200 rounded-full font-medium hover:bg-green-200 hover:text-dark-100 transition-all"
+                        >
+                            View Resume
+                        </motion.button>
+                    </motion.div>
+
+                    {/* Right Column - Avatar */}
+                    <motion.div 
+                        initial="hidden"
+                        animate="visible"
+                        variants={scaleIn}
+                        className="relative w-full md:w-1/2 flex justify-center"
+                    >
+                        <div className="relative">
+                            <motion.div
+                                animate={{
+                                    rotate: [0, 5, -5, 0],
+                                    transition: { 
+                                        duration: 8,
+                                        repeat: Infinity,
+                                        ease: "easeInOut"
+                                    }
+                                }}
+                                className="w-56 h-56 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-green-200 to-dark-300 p-1"
+                            >
+                                <div 
+                                    className="w-full h-full rounded-full bg-cover bg-center"
+                                    style={{ backgroundImage: `url(${avatar})` }}
+                                />
+                            </motion.div>
+
+                            {/* Language Icons */}
+                            {languages.languages.slice(0, 3).map((lang, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{
+                                        delay: 0.3 + (index * 0.2),
+                                        type: "spring",
+                                        stiffness: 100
+                                    }}
+                                    className={`absolute ${index === 0 ? '-top-4 -right-4' : index === 1 ? 'bottom-8 -left-4' : '-bottom-4 right-8'} w-14 h-14 md:w-16 md:h-16 bg-dark-300 rounded-full flex items-center justify-center shadow-lg border-2 border-green-200`}
+                                >
+                                    <img 
+                                        src={lang} 
+                                        alt="Language" 
+                                        className="w-7 h-7 md:w-8 md:h-8 object-contain"
+                                    />
+                                </motion.div>
+                            ))}
                         </div>
-                        <div data-aos="fade-up" className={`circleA`}>
-                            <img src={languages.languages.length === 0 && languages.languages.length > 2 ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" : languages.languages[0]} className={`langImgA`} />
-                        </div>
-                        <div data-aos="fade-right" className={`circleB`}>
-                            <img src={languages.languages.length === 0 && languages.languages.length > 2 ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" : languages.languages[1]} className={`langImgB`} />
-                        </div>
-                        <div data-aos="fade-left" className={`circleC`}>
-                            <img src={languages.languages.length === 0 && languages.languages.length > 2 ? "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" : languages.languages[2]} className={`langImgC`} />
-                        </div>
-                    </div>
+                    </motion.div>
                 </div>
             </Container>
+
+            {/* Resume Modal */}
+            <AnimatePresence>
+                {resumeActive && (
+                    <ResumeViewer 
+                        onClose={() => setResumeActive(false)} 
+                        resume={resume} 
+                    />
+                )}
+            </AnimatePresence>
         </header>
-    )
+    );
 }
 
-function ResumeViewer({ openResume }) {
-
-    function dowloadCv() {
-        let link = document.createElement("a")
+function ResumeViewer({ onClose, resume }) {
+    const downloadResume = () => {
+        const link = document.createElement("a");
         link.href = resume;
-        link.download = "resume.pdf"
-        link.click()
-    }
+        link.download = "resume.pdf";
+        link.click();
+    };
 
     return (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-dark-400 z-[1500] flex flex-row items-center justify-center">
-            <div id="box" className="w-[100%] h-[99%] mx-auto bg-dark-100 overflow-hidden rounded-md md:w-[70%]">
-                <div id="head" className="w-full h-auto p-3 bg-dark-200 flex items-start justify-start">
-                    <h2>My Resume / CV</h2>
-                    <button className="px-3 py-1 flex flex-row items-center justify-center bg-green-300 ml-4 text-[12px] text-dark-300 font-bold rounded-[5px] scale-[.90] transition-all hover:scale-[.95]  " onClick={dowloadCv}>Download</button>
-                    <button className="px-3 py-1 flex flex-row items-center justify-center bg-red-500 ml-4 text-[12px] text-dark-300 font-bold rounded-[5px] scale-[.90] transition-all hover:scale-[.95] " onClick={openResume}>Close</button>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-dark-400/90 z-50 flex items-center justify-center p-4"
+        >
+            <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 50, opacity: 0 }}
+                className="w-full max-w-4xl bg-dark-100 rounded-lg overflow-hidden shadow-2xl"
+            >
+                <div className="flex justify-between items-center p-4 bg-dark-200">
+                    <h2 className="text-xl font-bold">My Resume</h2>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={downloadResume}
+                            className="flex items-center gap-2 px-4 py-2 bg-green-200 text-dark-100 rounded-md hover:bg-green-300 transition-colors"
+                        >
+                            <FaDownload /> Download
+                        </button>
+                        <button
+                            onClick={onClose}
+                            className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                        >
+                            <FaTimes /> Close
+                        </button>
+                    </div>
                 </div>
-                <iframe src={"/CV/resume.pdf"} frameborder="0" className="w-full h-full overflow-scroll bg-white-200 mt-0"></iframe>
-                <br />
-                <br />
-                <br />
-            </div>
-        </div>
-    )
+                <div className="h-[80vh]">
+                    <iframe 
+                        src={resume} 
+                        className="w-full h-full border-none"
+                        title="Resume"
+                    />
+                </div>
+            </motion.div>
+        </motion.div>
+    );
 }
-
-

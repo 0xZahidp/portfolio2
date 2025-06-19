@@ -1,117 +1,128 @@
-import React, { useEffect, useState } from "react"
-
-import Link from "next/link"
-import { FaGithub, FaTwitter } from "react-icons/fa"
-import { FiMail } from "react-icons/fi"
-import usersInfo from "../../data/usersInfo.json"
-import { socials } from "../../data/socials.json"
-import avatar from "../../public/images/avatar/avatar.png"
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FaGithub, FaTwitter } from "react-icons/fa";
+import { FiMail } from "react-icons/fi";
+import usersInfo from "../../data/usersInfo.json";
+import { socials } from "../../data/socials.json";
+import avatar from "../../public/images/avatar/avatar.png";
 
 function NavBar() {
+    const router = useRouter();
+    const [isHidden, setIsHidden] = useState(false);
+    const [prevScrollY, setPrevScrollY] = useState(0);
 
+    const isActive = (path) => router.pathname === path;
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            setIsHidden(currentScrollY > prevScrollY && currentScrollY > 50);
+            setPrevScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [prevScrollY]);
+
+    const navLinks = [
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+        { href: "/projects", label: "Projects" },
+        { href: "#contact", label: "Contact" },
+    ];
+
+    const socialLinks = [
+        { platform: "twitter", icon: <FaTwitter />, url: socials?.twitter },
+        { platform: "github", icon: <FaGithub />, url: socials?.github },
+        { platform: "email", icon: <FiMail />, url: socials?.email ? `mailto:${socials.email}` : null },
+    ];
 
     return (
-        <React.Fragment>
-            <div className={`navbar relative h-auto w-full flex align-center justify-between py-[20px]`}>
-                <div className={`left w-auto flex align-start items-start justify-start px-[10px] `}>
-                    <p className={`font-extrabold mr-[20px]`}>{usersInfo.github_username.charAt(0).toUpperCase() + usersInfo.github_username.slice(1)}</p>
-
-                    <ul className={`relative ml-[10px] hidden md:flex`}>
-                        <li className={`mt-[5px] mr-[10px] mb-[0px] ml-[10px] transition-all hover:text-green-100 hover:font-extrabold cursor-pointer text-[12px]`}>
-                            <Link href="/">Home</Link>
+        <nav className={`navbar fixed top-0 left-0 right-0 w-full flex justify-between items-center py-5 px-4 md:px-8 bg-dark-100/90 backdrop-blur-sm z-40 transition-transform duration-300 ${
+            isHidden ? "-translate-y-full" : "translate-y-0"
+        }`}>
+            <div className="flex items-center gap-8">
+                <Link href="/" passHref legacyBehavior>
+                    <a className="font-bold text-lg hover:text-green-200 transition-colors">
+                        {(usersInfo.name || usersInfo.full_name || 'My Portfolio')}'s Portfolio
+                    </a>
+                </Link>
+                
+                <ul className="hidden md:flex gap-6">
+                    {navLinks.map(({ href, label }) => (
+                        <li key={href}>
+                            <Link href={href} passHref legacyBehavior>
+                                <a className={`text-sm hover:text-green-200 transition-colors ${
+                                    isActive(href) ? "text-green-300 font-semibold underline underline-offset-4" : ""
+                                }`}>
+                                    {label}
+                                </a>
+                            </Link>
                         </li>
-                        <li className={`mt-[5px] mr-[10px] mb-[0px] ml-[10px] transition-all hover:text-green-100 hover:font-extrabold cursor-pointer text-[12px]`}>
-                            <Link href="/about">About</Link>
-                        </li>
-                        <li className={`mt-[5px] mr-[10px] mb-[0px] ml-[10px] transition-all hover:text-green-100 hover:font-extrabold cursor-pointer text-[12px]`}>
-                            <Link href="/projects">Projects</Link>
-                        </li>
-                        <li className={`mt-[5px] mr-[10px] mb-[0px] ml-[10px] transition-all hover:text-green-100 hover:font-extrabold cursor-pointer text-[12px]`}>
-                            <Link href="#contact">Contact</Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className={`relative right w-[50vmin] hidden md:flex `}>
-                    <ul className={`flex flex-row align-center justify-between items-center`}>
-                        {socials["twitter"] !== "" &&
-                            <a href={socials["twitter"]} target="_blank" className={`w-[100px] text-[17px] flex flex-row align-center justify-center items-center decoration-none  hover:text-white `}>
-                                <FaTwitter className={`mr-[10px] `} />
-                                <small>Twitter</small>
-                            </a>}
-
-                        {socials["github"] !== "" &&
-                            <a href={socials["github"]} target="_blank" className={`w-[100px] text-[17px] flex flex-row align-center justify-center items-center decoration-none  hover:text-white `}>
-                                <FaGithub className={`mr-[10px] `} />
-                                <small>Github</small>
-                            </a>}
-
-                        {socials["email"] !== "" &&
-                            <a href={`mailto:${socials["email"]}`} className={`w-[100px] text-[17px] flex flex-row align-center justify-center items-center decoration-none  hover:text-white `}>
-                                <FiMail className={`mr-[10px] icon mail`} />
-                                <small>Email</small>
-                            </a>}
-
-                    </ul>
-                </div>
-                <div className={`absolute top-[15px] right-[25px] md:hidden `}>
-                    <img src={avatar.src} className={` w-[40px] rounded-[50%] border-[2px] border-solid border-green-100 bg-dark-100 `} />
-                </div>
+                    ))}
+                </ul>
             </div>
-        </React.Fragment>
-    )
+
+            <div className="hidden md:flex gap-6">
+                {socialLinks.map(({ platform, icon, url }) => (
+                    url && (
+                        <a 
+                            key={platform}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-sm hover:text-green-200 transition-colors"
+                            aria-label={platform}
+                        >
+                            {icon}
+                            <span className="capitalize">{platform}</span>
+                        </a>
+                    )
+                ))}
+            </div>
+
+            <div className="md:hidden">
+                <img 
+                    src={avatar.src} 
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-green-200 object-cover"
+                />
+            </div>
+        </nav>
+    );
 }
 
-export default NavBar
+export default NavBar;
 
-export function ResponsiveNavbar({ activePage, pageName = "" }) {
+export function ResponsiveNavbar({ pageName = "" }) {
+    const router = useRouter();
+    const [active, setActive] = useState(router.pathname.split("/")[1] || "home");
 
-    const [active, setActive] = useState(activePage || "home")
-
-    function handleActive(e) {
-        let tgt = e.target.dataset;
-        let parent = e.target.parentElement.dataset;
-
-        if (Object.entries(tgt).length === 0) {
-            if (Object.entries(parent).length > 0) {
-                let { name } = parent
-                setActive(name)
-            }
-            return
-        }
-        let { name } = tgt;
-        setActive(name)
-    }
+    const navItems = [
+        { name: "home", icon: "home-outline", label: "Home", href: "/" },
+        { name: "projects", icon: "cube-outline", label: "Projects", href: "/projects" },
+        { name: "about", icon: "person-outline", label: "About", href: "/about" },
+        { name: "contact", icon: "mail-outline", label: "Contact", href: pageName ? `/${pageName}#contact` : "#contact" },
+    ];
 
     return (
-        <div className={`mobileNav`}>
-            <div className={`main`}>
-                <li className={active === "home" ? `active` : `li`} data-name="home" onClick={handleActive}>
-                    <Link href="/">
-                        <ion-icon name="home-outline" class={`icon`}></ion-icon>
-                    </Link>
-                    <label className={`label`}>Home</label>
-                </li>
-                <li className={active === "projects" ? `active` : `li`} data-name="projects" onClick={handleActive}>
-                    <Link href="/projects">
-                        <ion-icon name="cube-outline" class={`icon`}></ion-icon>
-                    </Link>
-                    <label className={`label`}>
-                        Projects
-                    </label>
-                </li>
-                <li className={active === "about" ? `active` : `li`} data-name="about" onClick={handleActive}>
-                    <Link href="/about">
-                        <ion-icon name="person-outline" class={`icon`}></ion-icon>
-                    </Link>
-                    <label className={`label`}>About</label>
-                </li>
-                <li className={active === "contact" ? `active mr-5` : `li mr-5`} data-name="contact" onClick={handleActive}>
-                    <Link href={pageName === "" ? "#contact" : "/#contact"}>
-                        <ion-icon name="mail-outline" class={`icon`}></ion-icon>
-                    </Link>
-                    <label className={`label`}>Contact</label>
-                </li>
-            </div>
-        </div>
-    )
+        <nav className="fixed bottom-0 left-0 right-0 w-full bg-dark-100/95 backdrop-blur-sm z-50 shadow-lg md:hidden">
+            <ul className="flex justify-around py-3">
+                {navItems.map(({ name, icon, label, href }) => (
+                    <li key={name}>
+                        <Link href={href} passHref legacyBehavior>
+                            <a 
+                                className={`flex flex-col items-center p-2 ${active === name ? "text-green-300" : "text-white"}`}
+                                onClick={() => setActive(name)}
+                            >
+                                <ion-icon name={icon} class="text-xl"></ion-icon>
+                                <span className="text-xs mt-1">{label}</span>
+                            </a>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
 }
