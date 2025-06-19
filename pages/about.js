@@ -8,7 +8,7 @@ import { ResponsiveNavbar } from "../components/Navbar";
 
 function About() {
     const [avatar, setAvatar] = useState(userInfo.avatar || "");
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0); // Initially set to 0
 
     const sectionVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -26,15 +26,17 @@ function About() {
     const contactInView = useInView(contactRef, { once: true });
 
     useEffect(() => {
-        const cachedAvatar = localStorage.getItem("github_avatar");
-        if (cachedAvatar) setAvatar(cachedAvatar);
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+        // Ensure this only runs on the client-side
+        if (typeof window !== "undefined") {
+            const cachedAvatar = localStorage.getItem("github_avatar");
+            if (cachedAvatar) setAvatar(cachedAvatar);
+            
+            // Update the windowWidth state on resize
+            const handleResize = () => setWindowWidth(window.innerWidth);
+            window.addEventListener("resize", handleResize);
+            return () => window.removeEventListener("resize", handleResize);
+        }
+    }, []); // The empty array ensures this runs only once after the component mounts
 
     const iconMap = {
         FaEnvelope: <FaEnvelope className="mr-2" />,
@@ -122,7 +124,7 @@ function About() {
                 </Container>
             </motion.section>
 
-            {/* Experience */}
+            {/* Experience Section */}
             <motion.section
                 ref={experienceRef}
                 variants={sectionVariants}
@@ -148,7 +150,7 @@ function About() {
                 </Container>
             </motion.section>
 
-            {/* Education */}
+            {/* Education Section */}
             <motion.section
                 ref={educationRef}
                 variants={sectionVariants}
@@ -172,7 +174,7 @@ function About() {
                 </Container>
             </motion.section>
 
-            {/* Contact */}
+            {/* Contact Section */}
             <motion.section
                 ref={contactRef}
                 variants={sectionVariants}
