@@ -57,6 +57,10 @@ body {
   color: var(--white1);
   background: var(--bg1);
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Reset anchors and lists */
@@ -152,12 +156,14 @@ ul {
 
 /* Header section */
 .header .main {
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .header .mainArea {
@@ -176,7 +182,7 @@ ul {
   width: 45vmax;
 }
 
-.header .main .circleA,
+.header .circleA,
 .header .circleB,
 .header .circleC {
   width: 250px;
@@ -228,10 +234,15 @@ ul {
 /* Mobile optimization */
 @media (max-width: 700px) {
   .header .main {
-    display: none;
+    display: block;
+    width: 100%;
   }
   .navbar .left {
     display: none;
+  }
+  .header .mainArea {
+    width: 80%;
+    padding: 5vmin;
   }
 }
 
