@@ -7,8 +7,8 @@ import userInfo from "../data/usersInfo.json";
 import { ResponsiveNavbar } from "../components/Navbar";
 
 function About() {
-    const [avatar, setAvatar] = useState(userInfo?.avatar || "");
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [avatar, setAvatar] = useState(userInfo.avatar || "");
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Directly set initial window width
 
     const sectionVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -26,14 +26,12 @@ function About() {
     const contactInView = useInView(contactRef, { once: true });
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const cachedAvatar = localStorage.getItem("github_avatar");
-            if (cachedAvatar) setAvatar(cachedAvatar);
-        }
+        // Fetch avatar from localStorage if available
+        const cachedAvatar = localStorage.getItem("github_avatar");
+        if (cachedAvatar) setAvatar(cachedAvatar);
     }, []);
 
     useEffect(() => {
-        setWindowWidth(window.innerWidth);
         const handleResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -81,12 +79,12 @@ function About() {
                     </div>
                     <div className="w-full md:w-2/3">
                         <h1 className="text-3xl font-bold mb-4 text-white-100">
-                            {userInfo?.full_name}
+                            {userInfo.full_name}
                         </h1>
                         <p className="text-white-200 p-4 bg-dark-300 border-l-4 border-green-200 italic">
-                            {userInfo?.intro_tagline}
+                            {userInfo.intro_tagline}
                         </p>
-                        <p className="text-white-200 mt-6">{userInfo?.bio_desc}</p>
+                        <p className="text-white-200 mt-6">{userInfo.bio_desc}</p>
                     </div>
                 </div>
             </Container>
@@ -104,7 +102,7 @@ function About() {
                         <FaCode className="mr-2 text-green-200" /> Skills
                     </h2>
                     <div className="mt-6">
-                        {Object.entries(userInfo?.skills || {}).map(([category, skills]) => (
+                        {Object.entries(userInfo.skills || {}).map(([category, skills]) => (
                             <div key={category} className="mb-6">
                                 <h3 className="text-xl font-semibold text-white-200 mb-3 capitalize">
                                     {category}
@@ -138,7 +136,7 @@ function About() {
                         <FaBriefcase className="mr-2 text-green-200" /> Experience
                     </h2>
                     <div className="mt-6 space-y-8">
-                        {userInfo?.experience?.map((exp, index) => (
+                        {userInfo.experience?.map((exp, index) => (
                             <div key={index} className="bg-dark-300 p-6 rounded-lg">
                                 <h3 className="text-2xl font-semibold text-white-100">
                                     {exp.position} · <a href={exp.url} target="_blank" rel="noopener noreferrer" className="text-green-200 hover:underline">{exp.company}</a>
@@ -164,7 +162,7 @@ function About() {
                         <FaGraduationCap className="mr-2 text-green-200" /> Education
                     </h2>
                     <div className="mt-6 space-y-6">
-                        {userInfo?.education?.map((edu, index) => (
+                        {userInfo.education?.map((edu, index) => (
                             <div key={index} className="bg-dark-400 p-5 rounded-lg">
                                 <h3 className="text-xl font-semibold text-white-100">{edu.degree}</h3>
                                 <p className="text-white-300 mt-1">{edu.institution}</p>
@@ -190,7 +188,7 @@ function About() {
                     </h2>
                     <p className="text-white-200 mt-3">Let's collaborate! Reach out via:</p>
                     <div className="mt-6 flex flex-wrap gap-4">
-                        {(userInfo?.contact_links || []).map((link, index) => (
+                        {userInfo.contact_links?.map((link, index) => (
                             <a
                                 key={index}
                                 href={link.url}
@@ -202,7 +200,7 @@ function About() {
                                 {link.platform}
                             </a>
                         ))}
-                        {userInfo?.resume_url && (
+                        {userInfo.resume_url && (
                             <a
                                 href={userInfo.resume_url}
                                 className="flex items-center px-6 py-3 border-2 border-green-200 text-green-200 rounded-lg hover:bg-green-200 hover:text-dark-100 transition-colors"
