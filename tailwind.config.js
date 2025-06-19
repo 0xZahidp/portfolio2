@@ -1,43 +1,44 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./pages/**/*.{html,js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}", // Include if you're using Next.js app directory
   ],
   theme: {
     extend: {
       colors: {
-        "dark": {
+        dark: {
           100: "#202022",
           200: "#2d2e32",
           300: "#25262a",
-          400: "#0c0c0c8c",
+          400: "#0c0c0c8c", // Semi-transparent black
         },
-        "green": {
+        green: {
           100: "#64f4ac",
-          200: "#64f4acea",
-          300: "rgb(100, 244, 172, .7)",
+          200: "#64f4ac", // Reused without alpha; Tailwind doesn't support hex with alpha
+          300: "rgba(100, 244, 172, 0.7)",
           400: "#05ff82",
           500: "#15eb80",
-          600: "rgb(3, 252, 128, .4)",
+          600: "rgba(3, 252, 128, 0.4)",
         },
-        "red": {
-          100: "#rgb(255, 0, 0, .4)",
+        red: {
+          100: "rgba(255, 0, 0, 0.4)", // Transparent red
           200: "#ff0000",
         },
-        "white": {
-          100: "#fff",
-          200: "#ccc",
-          300: "#777"
+        white: {
+          100: "#ffffff",
+          200: "#cccccc",
+          300: "#777777",
         },
-        "blue": {
+        blue: {
           200: "#4898f0",
           400: "#503cef",
           600: "#513cef",
-          800: "#140e32"
-        }
-
-      }
+          800: "#140e32",
+        },
+      },
     },
   },
   plugins: [],
-}
+};

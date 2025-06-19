@@ -49,7 +49,8 @@ export default function HomePage() {
         <DataContextProvider>
             <DomHead />
             <Layout>
-                <Container className="pt-4">
+                {/* Add horizontal padding on Container */}
+                <Container className="pt-4 px-4 sm:px-6 md:px-8">
                     <Intro />
                     <Projects />
                 </Container>
@@ -57,11 +58,11 @@ export default function HomePage() {
                 <Contact />
                 <Footer />
 
-                {/* Back to Top Button - Now on left side */}
+                {/* Back to Top Button - with more gap from left */}
                 {showScrollTop && (
                     <button
                         onClick={scrollToTop}
-                        className="fixed bottom-5 left-5 p-3 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 z-40 focus:outline-none focus:ring-2 focus:ring-green-200"
+                        className="fixed bottom-5 left-6 sm:left-8 p-3 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 z-40 focus:outline-none focus:ring-2 focus:ring-green-200"
                         aria-label="Scroll to top"
                     >
                         <FaArrowUp size={20} />

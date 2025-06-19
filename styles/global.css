@@ -2,321 +2,241 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* Load custom fonts */
 @font-face {
-    font-family: Poppin;
-    src: url("../public/fonts/Poppins.ttf");
-}
-
-@font-face {
-    font-family: FiraCode;
-    src: url("../public/fonts/FiraCode.ttf");
+  font-family: 'Poppin';
+  src: url("/fonts/Poppins.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: Cario;
-    src: url("../public/fonts/Cairo-Light.ttf");
+  font-family: 'FiraCode';
+  src: url("/fonts/FiraCode.ttf") format("truetype");
 }
 
-
-
-:root{
-    --dark1:#0c0c0c8c;
-    --bg1: #202022;
-    --bg2: #2d2e32;
-    --bg3: #25262a;
-    --gr1: #64f4ac;
-    --gr2: #64f4acea;
-    --gr3: rgb(100, 244, 172, .7);
-    --grnbg1:#05ff82;
-    --grnbg2:#15eb80;
-    --grnbg3:rgb(3, 252, 128, .4);
-    --white1:#fff;
-    --white2:#ccc;
-    --white3:rgb(129, 129, 129);
-    --red1:#ff0000;
-    --red2:rgb(255, 0, 0, .4);
-
-    --poppin: Poppin;
-    --firacode: Firacode;
-    --cario: Cario;
+@font-face {
+  font-family: 'Cario';
+  src: url("/fonts/Cairo-Light.ttf") format("truetype");
 }
 
-html{
-    scroll-behavior: smooth;
-}
-a{
-    text-decoration: none;
-}
+/* Root variables */
+:root {
+  --dark1: #0c0c0c8c;
+  --bg1: #202022;
+  --bg2: #2d2e32;
+  --bg3: #25262a;
 
-ul{
-    width: auto;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-}
+  --gr1: #64f4ac;
+  --gr2: rgba(100, 244, 172, 0.9);
+  --gr3: rgba(100, 244, 172, 0.7);
 
-li{
-    list-style-type: none;
-}
+  --grnbg1: #05ff82;
+  --grnbg2: #15eb80;
+  --grnbg3: rgba(3, 252, 128, 0.4);
 
-body{
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    left: 0px;
-    overflow-x: hidden;
-    font-family: var(--poppin);
-    color: var(--white1);
-    background: var(--bg1);
+  --white1: #ffffff;
+  --white2: #cccccc;
+  --white3: #818181;
+
+  --red1: #ff0000;
+  --red2: rgba(255, 0, 0, 0.4);
+
+  --poppin: 'Poppin', sans-serif;
+  --firacode: 'FiraCode', monospace;
+  --cario: 'Cario', sans-serif;
 }
 
-
-.navbar .right ul a:hover > .mail{
-    opacity: 1;
+html {
+  scroll-behavior: smooth;
 }
 
-.navbar .right ul a .mail{
-    padding: 8px;
-    font-size: 30px;
-    background: var(--bg1);
-    color: var(--gr1);
-    border-radius: 50%;
-    opacity: .7;
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--poppin);
+  color: var(--white1);
+  background: var(--bg1);
+  margin: 0;
 }
 
-.mobileNav{
-    width: 100%;
-    height: auto;
-    padding:0px;
-    margin: 0px auto;
-    position: fixed;
-    left: 0px;
-    bottom: -5px;
-    background: var(--bg3);
-    box-shadow: 0px 0px 4px #000;
-    z-index: 1000;
-    overflow: hidden;
+/* Reset anchors and lists */
+a {
+  text-decoration: none;
 }
 
-
-.mobileNav .main{
-    width: 100vmin;
-    max-height: 70px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0px auto;
-    padding: 0px;
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.mobileNav .main .li{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition:all .2s ease;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 20px;
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-.mobileNav .main li .icon{
-    font-size: 20px;
-    padding: 15px;
-    transition:all .2s ease;
+/* Navbar hover email icon */
+.navbar .right ul a:hover > .mail {
+  opacity: 1;
 }
 
-.mobileNav .main .li label{
-    font-size: 12px;
-    font-weight: 300;
-    transition:all .3s ease;
-    transform: translateY(100px);
+.navbar .right ul a .mail {
+  padding: 8px;
+  font-size: 30px;
+  background: var(--bg1);
+  color: var(--gr1);
+  border-radius: 50%;
+  opacity: 0.7;
 }
 
-
-.mobileNav .main .li:hover > label{
-    display: flex;
-    transition:all .3s ease;
-    transform: translateY(-2px);
-    color: var(--gr2);
+/* Mobile Navigation */
+.mobileNav {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: var(--bg3);
+  box-shadow: 0 0 4px #000;
+  z-index: 1000;
 }
 
-.mobileNav .main .li:hover > .icon{
-    background: var(--bg1);
-    border-radius: 50%;
-    color: var(--gr2);
-    transition:all .2s ease;
+.mobileNav .main {
+  width: 100%;
+  max-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-/* when nav is active */
-
-.mobileNav .main .active{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition:all .2s ease;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 10px;
+.mobileNav .main .li,
+.mobileNav .main .active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.mobileNav .main .active > label{
-    font-size: 12px;
-    font-weight: 300;
-    transition:all .3s ease;
-    transform: translateY(-2px);
-    color: var(--gr2);
+.mobileNav .main .li label,
+.mobileNav .main .active label {
+  font-size: 12px;
+  font-weight: 300;
+  transition: transform 0.3s ease;
 }
 
-.mobileNav .main .active > .icon{
-    padding: 7px;
-    background: var(--bg1);
-    border-radius: 50%;
-    color: var(--gr2);
-    transition:all .2s ease;
+.mobileNav .main .li:hover > label {
+  transform: translateY(-2px);
+  color: var(--gr2);
 }
 
-
-@media(max-width:700px){
-    .navbar .left{
-        /* display: none; */
-    }
+.mobileNav .main .li:hover > .icon {
+  background: var(--bg1);
+  border-radius: 50%;
+  color: var(--gr2);
 }
 
-
-.header .main{
-    width: 50%;
-    height: auto;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.mobileNav .main .active > label {
+  transform: translateY(-2px);
+  color: var(--gr2);
 }
 
-.header .mainArea{
-    width: 300px;
-    height: 300px;
-    background: var(--bg3);
-    border-radius: 50%;
-    padding: 15vmin;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.mobileNav .main .active > .icon {
+  padding: 7px;
+  background: var(--bg1);
+  border-radius: 50%;
+  color: var(--gr2);
 }
 
-
-.header .mainArea .avatar{
-    width: 45vmax;
+/* Header section */
+.header .main {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.header .main .circleA{
-    width: 250px;
-    height:250px;
-    /* border: 2px solid var(--grnbg2); */
-    padding: 20px;
-    position: absolute;
-    top: 10px;
-    border-radius: 50%;
+.header .mainArea {
+  width: 300px;
+  height: 300px;
+  background: var(--bg3);
+  border-radius: 50%;
+  padding: 15vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.header .circleA .langImgA{
-    width: 10vmin;
-    padding: 12px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--bg2);
-    border-radius: 50%;
-    box-shadow: 0px 0px 15px var(--bg1);
-    z-index: 100;
-    animation: cylceA 10s linear infinite;
-    transition: all .2s ease;
+.header .mainArea .avatar {
+  width: 45vmax;
 }
 
-
-.header .circleB{
-    width: 250px;
-    height:250px;
-    /* border: 2px solid green; */
-    padding: 20px;
-    position: absolute;
-    /* top: 10px;
-    right: 0px; */
-    margin:0px auto;
-    border-radius: 50%;
-}   
-
-
-.header .circleB .langImgB{
-    width: 20vmin;
-    padding: 15px;
-    position: absolute;
-    right: 20px;
-    bottom: -50px;
-    background: var(--bg2);
-    border-radius: 50%;
-    box-shadow: 0px 0px 15px var(--bg1);
-    z-index: 100;
-    animation: cylceB 10s linear infinite;
-    transition: all .2s ease;
+.header .main .circleA,
+.header .circleB,
+.header .circleC {
+  width: 250px;
+  height: 250px;
+  padding: 20px;
+  border-radius: 50%;
+  position: absolute;
 }
 
-
-
-.header .circleC{
-    width: 250px;
-    height:250px;
-    /* border: 2px solid var(--red1); */
-    padding: 20px;
-    position: absolute;
-    /* top: -20px;
-    left: 0px; */
-    margin: 0px auto;
-    border-radius: 50%;
+.header .circleA .langImgA,
+.header .circleB .langImgB,
+.header .circleC .langImgC {
+  position: absolute;
+  background: var(--bg2);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--bg1);
+  z-index: 100;
+  transition: all 0.2s ease;
+  animation: spin 10s linear infinite;
 }
 
-.header .circleC .langImgC{
-    width: 15vmin;
-    padding: 15px;
-    position: absolute;
-    left: -50px;
-    top: 100px;
-    background: var(--bg2);
-    border-radius: 50%;
-    box-shadow: 0px 0px 15px var(--bg1);
-    z-index: 100;
-    animation: cylceC 10s linear infinite;
-    transition: all .2s ease;
+.header .circleA .langImgA {
+  width: 10vmin;
+  top: 10px;
+  right: 10px;
+  padding: 12px;
 }
 
-.header .langImgA:hover{
-    filter: grayscale(0%);
+.header .circleB .langImgB {
+  width: 20vmin;
+  right: 20px;
+  bottom: -50px;
+  padding: 15px;
 }
 
-.header .langImgB:hover{
-    filter: grayscale(0%);
+.header .circleC .langImgC {
+  width: 15vmin;
+  left: -50px;
+  top: 100px;
+  padding: 15px;
 }
 
-.header .langImgC:hover{ 
-    filter: grayscale(0%);
-} 
+.header .langImgA:hover,
+.header .langImgB:hover,
+.header .langImgC:hover {
+  filter: grayscale(0%);
+}
 
+/* Mobile optimization */
+@media (max-width: 700px) {
+  .header .main {
+    display: none;
+  }
+  .navbar .left {
+    display: none;
+  }
+}
 
-@media(max-width: 700px) {
-    .header .main{
-        display: none;
-    }
+/* Optional: animation keyframe if spinning */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
