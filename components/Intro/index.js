@@ -1,11 +1,6 @@
-
-
-import Link from "next/link"
-
-import skills from "../../data/skills.json"
-import usersInfo from "../../data/usersInfo.json"
-
-
+import Link from "next/link";
+import skills from "../../data/skills.json";
+import usersInfo from "../../data/usersInfo.json";
 
 export default function Intro() {
 
@@ -14,13 +9,13 @@ export default function Intro() {
             <div className={`w-full flex items-start justify-between flex-row flex-wrap-reverse`}>
                 <div className={`w-full h-auto p-[10px] relative container md:w-[50%]`}>
                     {/* boxes */}
-                    <IntroCards data={skills.skill} />
+                    <IntroCards data={skills?.skill || []} />
                 </div>
                 <div className={`w-full h-auto relative top-[20px] p-[10px] mb-[30px] md:mb-0 md:w-[45%]`}>
                     <p className={`text-[12px] text-white-200 `}>Introduce</p>
                     <div className={`relative top-[20px]`}>
                         <h1 data-aos="zoom-in-up" className={`text-[35px] font-bold mb-[20px]`}>
-                            {usersInfo.greeting_type}  I'm {usersInfo.full_name}.
+                            {usersInfo.greeting_type} I'm {usersInfo.full_name}.
                         </h1>
                         <br />
                         <br />
@@ -34,11 +29,6 @@ export default function Intro() {
                     </div>
                 </div>
             </div>
-            {/* <div className={styles.companies}>
-                <img src="https://avatars.githubusercontent.com/u/104397777?s=200&v=4" className={styles.compImage} alt="" />
-                <img src="" className={styles.compImage} alt="" />
-            </div>
-            <br /> */}
         </div>
     )
 }
@@ -51,7 +41,7 @@ function IntroCards({ data }) {
                 data.length > 0 ?
                     data.map((skill, i) => {
                         return (
-                            <div data-aos="zoom-in-up" key={i} className={`w-full h-[120px] p-[20px] rounded-[5px] bg-dark-200 m-[0px] relative transition-all mt-4 hover:shadow-2xl `}>
+                            <div data-aos="zoom-in-up" key={skill.name || i} className={`w-full h-[120px] p-[20px] rounded-[5px] bg-dark-200 m-[0px] relative transition-all mt-4 hover:shadow-2xl `}>
                                 <div className={`flex flex-col items-start justify-start`}>
                                     <p className={`m-0 font-extrabold text-green-100 `}>
                                         {skill.name}
@@ -65,7 +55,7 @@ function IntroCards({ data }) {
                                         {skill.projects_completed} Projects
                                     </a>
                                 </div>
-                                <ion-icon name="color-wand" class={`absolute top-[10px] right-[10px] text-green-400 p-[5px] `}></ion-icon>
+                                <ion-icon name="color-wand" className={`absolute top-[10px] right-[10px] text-green-400 p-[5px] `}></ion-icon>
                             </div>
                         )
                     })
@@ -84,7 +74,7 @@ function IntroCards({ data }) {
                                 60 Projects
                             </a>
                         </div>
-                        <ion-icon name="color-wand" class={`absolute top-[10px] right-[10px] text-green-400 p-[5px] `}></ion-icon>
+                        <ion-icon name="color-wand" className={`absolute top-[10px] right-[10px] text-green-400 p-[5px] `}></ion-icon>
                     </div>
             }
         </>
