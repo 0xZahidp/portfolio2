@@ -12,11 +12,10 @@ module.exports = {
           100: "#202022",
           200: "#2d2e32",
           300: "#25262a",
-          400: "#0c0c0c8c", // Semi-transparent black
+          400: "rgba(12, 12, 12, 0.55)", // Updated with RGBA transparency
         },
         green: {
           100: "#64f4ac",
-          200: "#64f4ac", // Reused without alpha; Tailwind doesn't support hex with alpha
           300: "rgba(100, 244, 172, 0.7)",
           400: "#05ff82",
           500: "#15eb80",
