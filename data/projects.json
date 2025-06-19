@@ -1,7 +1,7 @@
 {
     "projects":[
         {
-            "title": "BaayMax",
+            "title": "Encryptor",
             "imageUrl": "https://private-user-images.githubusercontent.com/82576513/413624928-dc6a6185-2264-430b-aa3e-fa6c39cd31ce.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTAzNTE4NjAsIm5iZiI6MTc1MDM1MTU2MCwicGF0aCI6Ii84MjU3NjUxMy80MTM2MjQ5MjgtZGM2YTYxODUtMjI2NC00MzBiLWFhM2UtZmE2YzM5Y2QzMWNlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MTklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjE5VDE2NDYwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVmOTY5MGQzZGFkMTcwN2RiY2IzNmU5MDIwODg0ZGI4ODA2NjdiOWI3Njg5MDNmNmU3ODI4MDZmOGZjZDdhY2EmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.Nh79eYYe7bdYT7mUJlNX6SbqcOE-U6KdohiYroBHE9k",
             "project_url": "https://github.com/0xZahidp/Encryptor",
             "description": "Encrypt your personal notes.",
