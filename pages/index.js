@@ -7,43 +7,29 @@ import { FaArrowUp } from "react-icons/fa";
 
 export default function HomePage() {
     const [showScrollTop, setShowScrollTop] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true);
         Aos.init({
             duration: 1000,
             once: true,
             easing: 'ease-in-out',
-            offset: 100
+            offset: 100,
         });
 
         const handleScroll = () => {
-            if (window.scrollY > 300) {
-                setShowScrollTop(true);
-            } else {
-                setShowScrollTop(false);
-            }
+            setShowScrollTop(window.scrollY > 300);
         };
 
-        if (isMounted) {
-            window.addEventListener("scroll", handleScroll);
-        }
+        window.addEventListener("scroll", handleScroll);
 
         return () => {
-            if (isMounted) {
-                window.removeEventListener("scroll", handleScroll);
-            }
+            window.removeEventListener("scroll", handleScroll);
         };
-    }, [isMounted]);
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
-
-    if (!isMounted) {
-        return null;
-    }
 
     return (
         <DataContextProvider>
